@@ -1,29 +1,24 @@
 ---
-# tasks file for duplicati
+# Variable setup.
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install Prerequisite Packages
-  apt:
-    name:
-      - mono-devel
-    state: present
+- name: Ensure Duplicati package is downloaded
+  get_url:
+    url: "{{ duplicati_download_url }}"
+    dest: "{{ duplicati_download_dir }}"
+  register: duplicati_download
 
-- name: Check if Duplicati package is installed
-  command: dpkg-query -W duplicati
-  register: duplicati_package_check_deb
-  failed_when: duplicati_package_check_deb.rc > 1
-  changed_when: duplicati_package_check_deb.rc == 1
+# Setup/install tasks.
+- name: Include RedHat installation tasks
+  include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat' or ansible_os_family == 'Rocky' or ansible_os_family == 'AlmaLinux'
 
-- name: Download duplicati_package
-  get_url: 
-    url="https://updates.duplicati.com/beta/duplicati_2.0.6.1-1_all.deb"
-    dest="~/duplicati_2.0.6.1-1_all.deb"
-  when: duplicati_package_check_deb.rc == 1
+- name: Include Debian installation tasks
+  include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: Install duplicati_package
-  apt: deb="~/duplicati_2.0.6.1-1_all.deb"
-  when: duplicati_package_check_deb.rc == 1
-
-- name: Create a systemd unit file to run duplicati
+- name: Ensure systemd unit file is installed
   copy:
     dest: /etc/systemd/system/duplicati.service
     content: |
@@ -41,7 +36,7 @@
       [Install]
       WantedBy=multi-user.target
 
-- name: Edit the duplicati config to listen on all interfaces
+- name: Ensure Duplicati is configured to listen on all interfaces
   copy:
     dest: /etc/default/duplicati
     content: |
@@ -56,7 +51,7 @@
       # Additional options that are passed to the Daemon.
       DAEMON_OPTS="--webservice-interface=any --webservice-port=8200 --portable-mode"
 
-- name: Start and enable the duplicati service
+- name: Ensure Duplicati service is started and enabled
   service:
     name: duplicati
     enabled: true

@@ -1,0 +1,14 @@
+---
+_duplicati_release:
+  deb: https://github.com/duplicati/duplicati/releases/download/v2.0.6.3-2.0.6.3_beta_2021-06-17/duplicati_2.0.6.3-1_all.deb
+  rpm: https://github.com/duplicati/duplicati/releases/download/v2.0.6.3-2.0.6.3_beta_2021-06-17/duplicati-2.0.6.3-2.0.6.3_beta_20210617.noarch.rpm
+
+# The URL for the Duplicati release to download
+duplicati_download_url: "{{ _duplicati_release.deb }}"
+
+# The path to store the downloaded Duplicati release
+duplicati_download_dir: /tmp
+
+# A list of dependency packages to install
+duplicati_dependencies:
+  - mono-devel
