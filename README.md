@@ -6,6 +6,7 @@ An Ansible role to install the Duplicati backup client on Linux. It downloads an
 
 This role is currently tested on the following platforms, but should also work on other modern Debian and RHEL based distros.
 
+- Debian 12
 - Debian 11
 - Debian 10
 - Rocky Linux 9
