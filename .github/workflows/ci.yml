@@ -43,9 +43,7 @@ jobs:
         distro:
           - debian12
           - debian11
-          - debian10
           - rockylinux9
-          - rockylinux8
 
     steps:
       - name: Check out the codebase.
