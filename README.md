@@ -2,7 +2,7 @@
 
 An Ansible role to install the Duplicati backup client on Linux. It downloads and installs Duplicati, configures it to run as a systemd service, and enables the web-interface on all interfaces.
 
-## Requirenments
+## Requirements
 
 This role is currently tested on the following platforms, but should also work on other modern Debian and RHEL based distros.
 
