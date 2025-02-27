@@ -8,9 +8,7 @@ This role is currently tested on the following platforms, but should also work o
 
 - Debian 12
 - Debian 11
-- Debian 10
 - Rocky Linux 9
-- Rocky Linux 8
 
 > NOTE: You may have to override the `duplicati_dependencies` variable in your inventory when using other distros as package names may differ from distro to distro. See [Role Variables](#role-variables) below.
 
