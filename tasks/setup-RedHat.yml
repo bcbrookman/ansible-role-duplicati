@@ -4,16 +4,23 @@
     name: "{{ duplicati_dependencies }}"
     state: present
 
-- name: Check if the Duplicati package is already installed
+- name: Gather installed Duplicati package details (if applicable)
   shell:
     cmd: rpm -q duplicati
-  register: rpm_installed
+  register: installed_rpm
   failed_when: false
   changed_when: false
 
-- name: Ensure the Duplicati package is installed
+- name: Gather downloaded Duplicati package details
+  shell:
+    cmd: rpm -q "{{duplicati_download.dest}}"
+  register: downloaded_rpm
+  failed_when: false
+  changed_when: false
+
+- name: Ensure Duplicati package is installed
   shell:
     # --nodeps is required to work around a missing dependency only used for
     # the system tray icon. See https://github.com/duplicati/duplicati/issues/3950
     cmd: rpm --install --force --nodeps "{{ duplicati_download.dest }}"
-  when: (rpm_installed.rc != 0) or not (rpm_installed.stdout in duplicati_download.dest)
+  when: installed_rpm.stdout != downloaded_rpm.stdout
