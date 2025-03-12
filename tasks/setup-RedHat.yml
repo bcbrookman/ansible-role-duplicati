@@ -20,7 +20,5 @@
 
 - name: Ensure Duplicati package is installed
   shell:
-    # --nodeps is required to work around a missing dependency only used for
-    # the system tray icon. See https://github.com/duplicati/duplicati/issues/3950
-    cmd: rpm --install --force --nodeps "{{ duplicati_download.dest }}"
+    cmd: rpm --install --force "{{ duplicati_download.dest }}"
   when: installed_rpm.stdout != downloaded_rpm.stdout
