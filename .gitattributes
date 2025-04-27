@@ -1,0 +1,7 @@
+# Files to exlcude in git archives and Ansible Galaxy role imports
+# See https://github.com/ansible/galaxy/issues/78#issuecomment-336321484
+.gitattributes export-ignore
+.github/ export-ignore
+.gitignore export-ignore
+.yamllint export-ignore
+molecule/ export-ignore
