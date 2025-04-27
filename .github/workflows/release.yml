@@ -12,47 +12,9 @@ name: Release
     tags:
       - '*'
 
-permissions:
-  contents: write
-
 jobs:
-  dist_sync:
-    name: Sync dist branch
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set custom vars (as step outputs)
-        id: custom_vars
-        run: |-
-          # assuming repo 'owner/ansible-role-rolename', set checkout_path = 'owner.rolename'
-          echo "checkout_path=$(echo ${{ github.repository }} | sed -E 's|/[^/]*?-|.|')" >> "$GITHUB_OUTPUT"
-
-      - name: Setup repo and token
-        uses: actions/checkout@v4
-        with:
-          path: ${{ steps.custom_vars.checkout_path}}
-
-      - name: Swtich to dist branch
-        run: |-
-          git fetch origin dist
-          git switch dist
-
-      - name: Checkout role-specific files at git ref
-        run: |-
-          git rm -r ./
-          git fetch origin ${{ github.ref }}
-          git checkout ${{ github.ref }} -- defaults/ meta/ tasks/ vars/ LICENSE README.md
-
-      - name: Push the changes back to dist
-        run: |-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "${{ github.ref_name }} (${{ github.sha }})"
-          git push origin dist
-
   galaxy_import:
     name: Ansible Galaxy import
-    needs: dist_sync
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python 3
@@ -63,9 +25,8 @@ jobs:
       - name: Install Ansible
         run: pip3 install ansible-core
 
-      - name: Trigger a new import on Galaxy
+      - name: Trigger a new Ansible Galaxy import
         run: >-
-          ansible-galaxy role import -vvvvvv
+          ansible-galaxy role import -vvv
           --api-key ${{ secrets.GALAXY_API_KEY }}
-          --branch dist
           $(echo ${{ github.repository }} | awk -F/ '{print $1, $2}')
