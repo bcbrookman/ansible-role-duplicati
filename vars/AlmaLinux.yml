@@ -1,0 +1,8 @@
+---
+duplicati_download_url: "{{ _duplicati_release.rpm }}"
+duplicati_dependencies:
+  - desktop-file-utils
+  - mono-devel
+  - libicu
+  - libSM
+  - libICE

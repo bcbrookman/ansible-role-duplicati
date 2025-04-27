@@ -1,0 +1,24 @@
+---
+- name: Ensure dependencies are installed
+  yum:
+    name: "{{ duplicati_dependencies }}"
+    state: present
+
+- name: Gather installed Duplicati package details (if applicable)
+  shell:
+    cmd: rpm -q duplicati
+  register: installed_rpm
+  failed_when: false
+  changed_when: false
+
+- name: Gather downloaded Duplicati package details
+  shell:
+    cmd: rpm -q "{{duplicati_download.dest}}"
+  register: downloaded_rpm
+  failed_when: false
+  changed_when: false
+
+- name: Ensure Duplicati package is installed
+  shell:
+    cmd: rpm --install --force "{{ duplicati_download.dest }}"
+  when: installed_rpm.stdout != downloaded_rpm.stdout

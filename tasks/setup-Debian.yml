@@ -1,0 +1,14 @@
+---
+- name: Ensure apt cache is updated
+  apt: update_cache=yes cache_valid_time=86400
+  changed_when: false
+
+- name: Ensure dependencies are installed
+  apt:
+    name: "{{ duplicati_dependencies }}"
+    state: present
+
+- name: Ensure Duplicati package is installed
+  apt:
+    deb: "{{ duplicati_download.dest }}"
+    state: present

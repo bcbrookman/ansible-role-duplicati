@@ -1,0 +1,28 @@
+---
+galaxy_info:
+  role_name: duplicati
+  author: bcbrookman
+  description: An Ansible role to install and setup Duplicati.
+  license: MIT
+
+  min_ansible_version: "2.9"
+
+  platforms:  # https://galaxy.ansible.com/api/v1/platforms/
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+    - name: EL
+      versions:
+        - "9"
+
+  galaxy_tags:
+    - backup
+    - cloud
+    - desktop
+    - duplicati
+    - server
+    - restore
+    - system
+
+dependencies: []

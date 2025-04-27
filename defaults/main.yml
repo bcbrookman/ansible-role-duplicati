@@ -1,0 +1,14 @@
+---
+_duplicati_release:
+  deb: https://github.com/duplicati/duplicati/releases/download/v2.1.0.4_stable_2025-01-31/duplicati-2.1.0.4_stable_2025-01-31-linux-x64-gui.deb
+  rpm: https://github.com/duplicati/duplicati/releases/download/v2.1.0.4_stable_2025-01-31/duplicati-2.1.0.4_stable_2025-01-31-linux-x64-gui.rpm
+
+# The URL for the Duplicati release to download
+duplicati_download_url: "{{ _duplicati_release.deb }}"
+
+# The path to store the downloaded Duplicati release
+duplicati_download_dir: /tmp
+
+# A list of dependency packages to install
+duplicati_dependencies:
+  - mono-devel
