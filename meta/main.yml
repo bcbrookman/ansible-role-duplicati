@@ -16,8 +16,6 @@ galaxy_info:
       versions:
         - "9"
 
-  github_branch: dist
-
   galaxy_tags:
     - backup
     - cloud
