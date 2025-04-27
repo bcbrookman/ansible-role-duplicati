@@ -65,7 +65,7 @@ jobs:
 
       - name: Trigger a new import on Galaxy
         run: >-
-          ansible-galaxy role import
+          ansible-galaxy role import -vvv
           --api-key ${{ secrets.GALAXY_API_KEY }}
           --branch dist
           $(echo ${{ github.repository }} | awk -F/ '{print $1, $2}')
