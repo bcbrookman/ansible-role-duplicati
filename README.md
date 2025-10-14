@@ -16,7 +16,7 @@ This role is currently tested on the following platforms, but should also work o
 
 |Variable|Description|Default Value|
 |--------|-----------|-------|
-|duplicati_download_url|The URL for the Duplicati release to be downloaded.|The most recent beta release from [duplicati/releases](https://github.com/duplicati/duplicati/releases)|
+|duplicati_download_url|The URL for the Duplicati release to be downloaded.|The latest stable release from [duplicati/releases](https://github.com/duplicati/duplicati/releases)|
 |duplicati_download_dir|The directory where the Duplicati release will be downloaded.|`/tmp`|
 |duplicati_dependencies|A list of apt/yum dependencies needed by Duplicati. This generally won't need to be overridden, but may be required when installing a different Duplicati release, or on other distros.|Varies by platform, but generally `[mono-devel]`|
 
