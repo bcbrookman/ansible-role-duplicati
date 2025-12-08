@@ -1,10 +1,34 @@
 ---
-_duplicati_release:
-  deb: https://github.com/duplicati/duplicati/releases/download/v2.1.0.5_stable_2025-03-04/duplicati-2.1.0.5_stable_2025-03-04-linux-x64-gui.deb
-  rpm: https://github.com/duplicati/duplicati/releases/download/v2.1.0.5_stable_2025-03-04/duplicati-2.1.0.5_stable_2025-03-04-linux-x64-gui.rpm
+duplicati_package_release: v2.1.0.5_stable_2025-03-04
+duplicati_package_os: >-
+    {{
+      {
+        'Linux': 'linux',
+      }[ansible_facts.system]
+      | default('linux')
+    }}
+duplicati_package_arch: >-
+    {{
+      {
+        'x86_64': 'x64',
+        'aarch64': 'arm64',
+        'armv7l': 'armv7',
+        'i386': 'x86'
+      }[ansible_facts.architecture]
+      | default('x64')
+    }}
+duplicati_package_type: gui
+duplicati_package_extension: >-
+    {{
+      {
+        'Debian': 'deb',
+        'RedHat': 'rpm',
+      }[ansible_facts.os_family]
+      | default('deb')
+    }}
 
 # The URL for the Duplicati release to download
-duplicati_download_url: "{{ _duplicati_release.deb }}"
+duplicati_download_url: "https://github.com/duplicati/duplicati/releases/download/{{ duplicati_package_release }}/duplicati-{{ duplicati_package_release|regex_replace('^v(.*)$','\\1') }}-{{ duplicati_package_os }}-{{ duplicati_package_arch }}-{{ duplicati_package_type}}.{{ duplicati_package_extension }}"
 
 # The path to store the downloaded Duplicati release
 duplicati_download_dir: /tmp
