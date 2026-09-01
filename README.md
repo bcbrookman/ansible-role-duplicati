@@ -17,7 +17,7 @@ This role is currently tested on the following platforms, but should also work o
 
 |Variable|Description|Default Value|
 |--------|-----------|-------|
-|duplicati_package_release|The [Duplicati release](https://github.com/duplicati/duplicati/releases) to download and install. |`"v2.1.0.5_stable_2025-03-04"`|
+|duplicati_package_release|The [Duplicati release](https://github.com/duplicati/duplicati/releases) to download and install. |`"v2.3.0.4_stable_2026-07-09"`|
 |duplicati_package_os|The OS component of the Duplicati package to download and install.|Automatically determined|
 |duplicati_package_arch|The architecture component of the Duplicati package to download and install.|Automatically determined|
 |duplicati_package_type|The install type component of the Duplicati package to download and install.|`"gui"`|
